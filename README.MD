@@ -26,7 +26,7 @@
 
 Можено добавить запуск в crontab:
 
-`00 12 * * * ~/<username>/<name_venv>/bin/python  ~/<username>/USD_rate/get_usd_rate.py`
+`00 12 * * * ~/<name_venv>/bin/python  ~/USD_rate/get_usd_rate.py`
 
 
 Enjoy!
