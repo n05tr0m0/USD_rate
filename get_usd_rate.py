@@ -29,7 +29,7 @@ def get_dollar_rate(html):
 def send_message(message):
     title = 'Курс Доллара США'
     msg = message
-    return pync.notify(f'На сегодня {msg[1:5]} руб.', title=title)
+    return pync.notify(f'На сегодня {msg[1:6]} руб.', title=title)
 
 
 def main():
