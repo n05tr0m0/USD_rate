@@ -10,10 +10,10 @@ from bs4 import BeautifulSoup
 
 
 def get_html():
-    url = 'http://www.cbr.ru/'
+    url = 'http://cbr.ru/'
     headers = {
-        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) '
-                      'Chrome/75.0.3770.142 Safari/537.36'
+        'user-agent': 'Mozilla/5.0 () AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36 '
+                      'OPR/67.0.3575.79'
     }
     html_ = requests.get(url, headers=headers)
     return html_.text
@@ -21,19 +21,18 @@ def get_html():
 
 def get_dollar_rate(html):
     soup = BeautifulSoup(html, 'lxml')
-    tag_ = soup.find('ins', text='$').find_parent('tr').find_all('td')[-1].text
-    clear_result = tag_.split()[-1]
+    result = soup.find('div', class_='indicator_el_value mono-num').text
+    clear_result = result[:-3]
     return clear_result
 
 
-def send_message(message):
+def send_notification(message):
     title = 'Курс Доллара США'
-    msg = message
-    return pync.notify(f'На сегодня {msg[1:6]} руб.', title=title)
+    return pync.notify(f'На сегодня {message} руб.', title=title)
 
 
 def main():
-    send_message(get_dollar_rate(get_html()))
+    send_notification(get_dollar_rate(get_html()))
 
 
 if __name__ == '__main__':
