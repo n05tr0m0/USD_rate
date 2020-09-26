@@ -14,7 +14,7 @@
 
 `python3 -m venv <name_venv>`
 
-`source <name_venv>/bin/activate`
+`source env/bin/activate`
 
 Установите пакеты:
 
@@ -26,17 +26,17 @@
 
 Можено добавить запуск в crontab:
 
-`00 12 * * * ~/<name_venv>/bin/python  ~/USD_rate/get_usd_rate.py`
+`00 12 * * * ~/env/bin/python  ~/USD_rate/get_usd_rate.py`
 
 
 Так же можно добавить алиас для вызова из терминала (пример для Mac OS):
 
 OS Catalina: `nano .zprofile` <br>
-`alias usd="~/<name_venv>/bin/python  ~/USD_rate/get_usd_rate.py"` 
+`alias usd="~/env/bin/python  ~/USD_rate/get_usd_rate.py"` 
 
 <br>Предыдущие версии:
 `nano .profile` <br>
-`alias usd="~/<name_venv>/bin/python  ~/USD_rate/get_usd_rate.py"`
+`alias usd="~/env/bin/python  ~/USD_rate/get_usd_rate.py"`
 
 
 Enjoy!
