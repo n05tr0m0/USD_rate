@@ -4,6 +4,8 @@
 
 #
 
+![python](https://img.shields.io/badge/python-3.6%2B-blue)
+
 ### Установка
 
 Склонируйте себе репозиторий: 
@@ -14,7 +16,7 @@
 
 `python3 -m venv <name_venv>`
 
-`source env/bin/activate`
+`source <name_venv>/bin/activate`
 
 Установите пакеты:
 
@@ -26,17 +28,17 @@
 
 Можено добавить запуск в crontab:
 
-`00 12 * * * ~/USD_rate/env/bin/python  ~/USD_rate/get_usd_rate.py`
+`00 12 * * * ~/USD_rate/<name_venv>/bin/python  ~/USD_rate/get_usd_rate.py`
 
 
 Так же можно добавить алиас для вызова из терминала (пример для Mac OS):
 
 OS Catalina: `nano .zprofile` <br>
-`alias usd="~/USD_rate/env/bin/python  ~/USD_rate/get_usd_rate.py"` 
+`alias usd="~/USD_rate/<name_venv>/bin/python  ~/USD_rate/get_usd_rate.py"` 
 
-<br>Предыдущие версии:
+<br>Предыдущие версии Mac OS X:
 `nano .profile` <br>
-`alias usd="~/USD_rate/env/bin/python  ~/USD_rate/get_usd_rate.py"`
+`alias usd="~/USD_rate/<name_venv>/bin/python  ~/USD_rate/get_usd_rate.py"`
 
 
 Enjoy!
