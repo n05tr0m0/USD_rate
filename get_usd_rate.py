@@ -3,12 +3,21 @@
 
 by n05tr0m0
 """
+import logging
+import re
 from datetime import date
 
 import pync
 import requests
 from bs4 import BeautifulSoup
 from requests.exceptions import ConnectionError
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+handler = logging.FileHandler('usd_rate.log')
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 
 def get_html_page() -> str or None:
@@ -20,7 +29,8 @@ def get_html_page() -> str or None:
 
     try:
         resp = requests.get(url, headers=headers)
-    except ConnectionError:
+    except ConnectionError as err:
+        logger.warning(f'Нет доступа к сайту по сети. Текст ошибки: {err}')
         resp = 'Нет соединения'
 
     return resp if isinstance(resp, str) else resp.text
@@ -35,8 +45,12 @@ def get_dollar_rate(source_text: str) -> str:
     if source_text == 'Нет соединения':
         return 'Нет соединения'
     soup = BeautifulSoup(source_text, 'lxml')
-    result = soup.find('div', class_='indicator_el_value mono-num').text
-    clear_result = result[:-3]
+    try:
+        result = soup.find('div', class_='col-md-2 col-xs-9 _right mono-num').text
+    except AttributeError as err:
+        logger.warning(f'Скорее всего слетела вёрстка сайта. Текст ошибки: {err}')
+        return 'Нет результата'
+    clear_result = re.match(r'\d{2},\d{2}', result).group(0)
     save_last_course(clear_result)
     return clear_result
 
@@ -47,7 +61,7 @@ def load_last_course() -> str:
 
 
 def send_notification(message):
-    if message == 'Нет соединения':
+    if message == 'Нет соединения' or message == 'Нет результата':
         try:
             last_course = load_last_course()
         except FileNotFoundError:
@@ -58,7 +72,9 @@ def send_notification(message):
 
 
 def main():
+    logger.info('Проверка курса доллара.')
     send_notification(get_dollar_rate(get_html_page()))
+    logger.info('Проверка завершена.')
 
 
 if __name__ == '__main__':
