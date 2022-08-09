@@ -1,4 +1,2 @@
-beautifulsoup4==4.9.*
-lxml==4.6.*
-pync==2.*
-requests==2.24.*
+pync==2.0.3
+httpx==0.23.0
