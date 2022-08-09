@@ -4,7 +4,7 @@
 
 #
 
-![python](https://img.shields.io/badge/python-3.6%2B-blue) ![license](https://img.shields.io/badge/license-MIT-yellow)
+![python](https://img.shields.io/badge/python-3.10%2B-blue) ![license](https://img.shields.io/badge/license-MIT-yellow)
 
 ### Установка
 
